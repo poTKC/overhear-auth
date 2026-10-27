@@ -28,6 +28,12 @@
 (function () {
   var msg = document.getElementById("msg");
   var q = new URLSearchParams(location.search);
+  // Where the device sends the browser after a successful login: a page that
+  // stays (the device stops listening, and the browser may load it again).
+  if (q.get("done") === "1") {
+    msg.textContent = "ログインしました。このページは閉じてかまいません。";
+    return;
+  }
   var m = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3}):(\d{1,5})~[A-Za-z0-9_-]{16,128}$/.exec(q.get("state") || "");
   var ok = false;
   if (m) {
